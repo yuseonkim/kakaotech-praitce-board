@@ -22,13 +22,16 @@ import java.util.Objects;
 })
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleComment {
+public class ArticleComment extends AuditingFields {
     @Id
     private Long id;
-    @Setter @ManyToOne(optional = false) private Article article; // 게시글 (id)
+    @Setter
+    @ManyToOne(optional = false)
+    private Article article; // 게시글 (id)
 
-    @Setter @Column(nullable = false, length = 500) private String content;
-
+    @Setter
+    @Column(nullable = false, length = 500)
+    private String content;
 
 
     public ArticleComment() {
@@ -40,14 +43,14 @@ public class ArticleComment {
     }
 
     public ArticleComment of(Article article, String content) {
-        return new ArticleComment(article,content);
+        return new ArticleComment(article, content);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ArticleComment that)) return false;
-        return id!=null && id.equals(that.id);
+        return id != null && id.equals(that.id);
     }
 
     @Override
@@ -55,8 +58,6 @@ public class ArticleComment {
         return Objects.hash(id);
     }
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
-    @CreatedBy @Column(nullable = false) private String createdBy;
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
-    @LastModifiedBy @Column(nullable = false) private String modifiedBy;
 }
+
+
