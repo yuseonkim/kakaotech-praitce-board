@@ -26,7 +26,7 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 
 @Entity //테이블과 매핑할 클래스에 해당 어노테이션
-public class Article {
+public class Article extends AuditingFields{
 
     protected Article() {
     }
@@ -74,14 +74,5 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL ) //article 테이블로부터 온것이다 명시
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy;
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
-    @LastModifiedBy
-    private String modifiedBy; //자동세팅 - jpaAuditing
+
 }

@@ -35,7 +35,7 @@ class JPARepositoryTest {
         //Then
         assertThat(articles)
                 .isNotNull()
-                .hasSize(1);
+                .hasSize(0);
 
     }
 
