@@ -35,7 +35,7 @@ class JPARepositoryTest {
         //Then
         assertThat(articles)
                 .isNotNull()
-                .hasSize(0);
+                .hasSize(1);
 
     }
 
@@ -70,15 +70,17 @@ class JPARepositoryTest {
     @DisplayName("delete 테스트")
     @Test
     void givenTestData_whenDeleting_thenWorksFine(){
+        // Given
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
         int deletedCommentsSize = article.getArticleComments().size();
 
+        // When
         articleRepository.delete(article);
 
-
+        // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
-        assertThat(articleRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
     }
 }
