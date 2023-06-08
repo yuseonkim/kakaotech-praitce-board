@@ -1,15 +1,13 @@
 package com.kakaotech.praitceboard.domain;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -53,8 +51,8 @@ public class Article extends AuditingFields{
         return Objects.hash(id);
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  //AutoIncrement를 위해서
+    @Id//AutoIncrement를 위해서
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -71,7 +69,7 @@ public class Article extends AuditingFields{
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL ) //article 테이블로부터 온것이다 명시
+    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL)//article 테이블로부터 온것이다 명시
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 
